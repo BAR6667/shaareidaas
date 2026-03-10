@@ -2,7 +2,7 @@
 <html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>מערכת הגרלת התרי"ג - ישיבת שערי דעת</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;500;700;900&display=swap');
@@ -24,21 +24,21 @@
             color: var(--text-soft);
             font-family: 'Rubik', sans-serif;
             margin: 0;
-            overflow: hidden;
-            height: 100vh;
+            overflow-x: hidden; /* מונע גלילה לצדדים בנייד */
             display: flex;
             flex-direction: column;
+            min-height: 100vh;
         }
 
         body::before {
             content: "";
-            position: absolute;
+            position: fixed; /* שומר על הרקע גם כשגוללים בנייד */
             top: 0; left: 0; width: 100%; height: 100%;
             background: radial-gradient(circle at center, #00361d 0%, #000c06 100%);
             z-index: -1;
         }
 
-        /* === פריסה עליונה מוגדלת (67%) === */
+        /* === פריסה בסיסית (מחשב) === */
         .main-stage {
             height: 67vh;
             display: flex;
@@ -57,8 +57,8 @@
             flex-direction: column;
             padding: 2vh 2.5vh;
             flex: 1;
-            height: 100%;
             box-sizing: border-box;
+            height: 100%;
         }
 
         .center-col {
@@ -73,10 +73,33 @@
         .main-title { font-size: 5.5vh; font-weight: 900; letter-spacing: 2px; text-align: center; text-shadow: 0 5px 15px rgba(0,0,0,0.8); }
         .sub-title { font-size: 2.2vh; color: var(--gold-matte); letter-spacing: 4px; font-weight: 700; text-align: center; margin-bottom: 2vh; }
 
+        /* === כפתור תרומה === */
+        .donate-btn {
+            margin-top: 3vh;
+            background: linear-gradient(135deg, #FFD700 0%, #d4af37 100%);
+            color: #000;
+            font-size: 2.5vh;
+            font-weight: 900;
+            padding: 1.5vh 4vh;
+            border-radius: 50px;
+            text-decoration: none;
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+            border: 2px solid #fff;
+            transition: all 0.3s ease;
+            text-align: center;
+            display: inline-block;
+        }
+        
+        .donate-btn:hover {
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.6);
+            background: linear-gradient(135deg, #f1c40f 0%, #e6b800 100%);
+        }
+
         /* === עיצוב השעון === */
         .rolex-container {
             position: relative;
-            width: 35vh; height: 35vh;
+            width: 33vh; height: 33vh; /* טיפה הוקטן כדי לתת מקום לכפתור */
             background: #000;
             border-radius: 50%;
             border: 5px dashed var(--gold-matte); 
@@ -92,7 +115,6 @@
             border: 1px solid rgba(255,255,255,0.05);
         }
 
-        /* הטבעת הפנימית  */
         .rolex-face::before {
             content: "";
             position: absolute;
@@ -109,7 +131,7 @@
         .timer-digital {
             font-family: 'Orbitron', sans-serif;
             color: #fff; 
-            font-size: 4.5vh; 
+            font-size: 4vh; 
             text-shadow: 0 2px 5px rgba(0,0,0,0.9), 0 0 15px rgba(255, 255, 255, 0.4);
             background: transparent;
             border: none;
@@ -123,7 +145,7 @@
             animation: spin 60s linear infinite;
         }
 
-        /* === נתונים (שמאל) - חלוקה ומרכוז מושלמים 50/50 === */
+        /* === נתונים (שמאל) === */
         .stats-content { 
             flex: 1; display: flex; flex-direction: column; 
             align-items: center; text-align: center; height: 100%;
@@ -131,17 +153,11 @@
         }
         
         .stat-group { 
-            flex: 1; /* לוקח בדיוק חצי מהגובה */
-            display: flex; flex-direction: column; 
-            justify-content: center; /* ממורכז אנכית בתוך החצי שלו */
-            align-items: center; 
-            width: 100%;
+            flex: 1; display: flex; flex-direction: column; 
+            justify-content: center; align-items: center; width: 100%;
         }
         
-        .stat-divider {
-            width: 50%; height: 2px; background: rgba(212,175,55,0.2); flex-shrink: 0;
-        }
-
+        .stat-divider { width: 50%; height: 2px; background: rgba(212,175,55,0.2); flex-shrink: 0; }
         .stat-label { font-size: 2.2vh; color: var(--text-dim); text-transform: uppercase; margin-bottom: 1vh; letter-spacing: 1px; }
         .stat-value { font-size: 8vh; font-weight: 900; color: #fff; line-height: 1; text-shadow: 0 0 20px rgba(212, 175, 55, 0.3); }
         .currency { color: var(--gold-matte); font-size: 4.5vh; vertical-align: super; margin-left: 5px; }
@@ -149,12 +165,8 @@
 
         /* === תרומות (ימין) === */
         .feed-container { 
-            flex: 1; 
-            display: flex; 
-            flex-direction: column; 
-            gap: 1.2vh; 
-            overflow: hidden; 
-            justify-content: center; /* ממורכז אנכית */
+            flex: 1; display: flex; flex-direction: column; 
+            gap: 1.2vh; overflow: hidden; justify-content: center; 
         }
         .feed-item {
             display: flex; justify-content: space-between; align-items: center;
@@ -163,30 +175,26 @@
         }
         .feed-item.fresh { border-right-color: var(--gold-matte); background: rgba(212, 175, 55, 0.15); animation: slideIn 0.5s ease-out; color: #fff; }
 
-        /* === מטריצה - 33% תחתון מוקטן === */
+        /* === מטריצה - 33% תחתון מחשב === */
         .bottom-area {
-            height: 33vh;
+            flex: 1; /* לוקח את שאר הגובה במחשב */
             background: rgba(0, 0, 0, 0.4);
             border-top: 1px solid rgba(212, 175, 55, 0.2);
-            padding: 1.5vh 3vh; /* פחות ריווח למעלה כדי לחסוך מקום */
+            padding: 1.5vh 3vh; 
             display: flex; flex-direction: column; box-sizing: border-box;
+            min-height: 33vh;
         }
 
         .grid-container {
-            flex: 1;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-content: center; /* ממרכז את הגריד עצמו בתוך החלקה התחתונה */
-            gap: 0.4vh; 
-            overflow-y: hidden;
+            flex: 1; display: flex; flex-wrap: wrap;
+            justify-content: center; align-content: center; 
+            gap: 0.4vh; overflow-y: hidden;
         }
 
         .ticket {
             background: rgba(255, 255, 255, 0.04); 
             color: var(--ticket-free) !important;
-            width: 2.1vh; /* הותאם לגובה התחתון החדש */
-            height: 2.1vh;
+            width: 2.1vh; height: 2.1vh;
             display: flex; justify-content: center; align-items: center;
             font-size: 1vh !important; font-weight: 700; border-radius: 3px;
         }
@@ -200,10 +208,7 @@
 
         /* === פופ-אפ בתחתית צד שמאל === */
         #notification-popup {
-            position: fixed; 
-            bottom: 4vh; 
-            left: -400px; 
-            width: 320px;
+            position: fixed; bottom: 4vh; left: -400px; width: 320px;
             background: linear-gradient(135deg, #002211 0%, #000 100%);
             color: #fff; padding: 25px; border-radius: 15px;
             box-shadow: 0 15px 50px rgba(0,0,0,0.9); z-index: 2000;
@@ -215,6 +220,63 @@
         @keyframes slideIn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
         @keyframes spin { 100% { transform: rotate(360deg); } }
         ::-webkit-scrollbar { width: 0px; }
+
+        /* =========================================
+           התאמה למובייל (מסכים צרים כמו פלאפונים)
+           ========================================= */
+        @media (max-width: 768px) {
+            body { overflow-y: auto; } /* מאפשר גלילה למטה בפלאפון */
+            
+            .main-stage {
+                height: auto;
+                flex-direction: column; /* שובר לטור אחד */
+                padding: 20px 10px;
+                gap: 20px;
+            }
+
+            .center-col { order: 1; padding: 20px 0; } /* שעון למעלה */
+            .panel:nth-of-type(2) { order: 2; height: 350px; } /* נתונים באמצע */
+            .panel:nth-of-type(1) { order: 3; height: 400px; } /* תרומות למטה */
+
+            /* התאמת גדלים לפלאפון */
+            .main-title { font-size: 35px; }
+            .sub-title { font-size: 16px; margin-bottom: 30px; }
+            
+            .rolex-container { width: 280px; height: 280px; margin: 0 auto; }
+            .timer-digital { font-size: 30px; }
+            .rolex-face div:first-child { font-size: 50px !important; } /* כתר */
+            
+            .donate-btn { font-size: 20px; padding: 15px 30px; margin-top: 30px; width: 80%; max-width: 300px; }
+
+            .stat-value { font-size: 60px; }
+            .stat-label { font-size: 16px; }
+            .currency { font-size: 35px; }
+            
+            .feed-item { font-size: 16px; padding: 12px; }
+
+            /* מטריצה מותאמת לפלאפון */
+            .bottom-area {
+                order: 4;
+                height: auto;
+                min-height: auto;
+                padding: 15px 5px;
+            }
+            .grid-container {
+                gap: 3px;
+                padding-bottom: 20px;
+            }
+            .ticket {
+                width: 14px; /* קטן יותר כדי שייכנס לרוחב הפלאפון */
+                height: 14px;
+                font-size: 8px !important;
+            }
+
+            #notification-popup {
+                width: 90%; left: 5%; bottom: -200px; /* קופץ מלמטה בנייד */
+                top: auto; transition: bottom 0.5s;
+            }
+            #notification-popup.show { bottom: 20px; left: 5%; }
+        }
     </style>
 </head>
 <body>
@@ -227,14 +289,19 @@
         <div class="center-col">
             <div class="main-title">הגרלת התרי"ג</div>
             <div class="sub-title">ישיבת שערי דעת</div>
+            
             <div class="rolex-container">
                 <div class="rolex-face">
-                    <div style="font-size: 7vh; color: var(--gold-matte); margin-bottom: 1vh; z-index: 2; line-height: 1;">♛</div>
+                    <div style="font-size: 6.5vh; color: var(--gold-matte); margin-bottom: 1vh; z-index: 2; line-height: 1;">♛</div>
                     <div class="timer-digital" id="timer">00:00:00</div>
                     <div class="second-hand"></div>
                     <div style="position: absolute; width: 10px; height: 10px; background: var(--gold-matte); border-radius: 50%; z-index: 3; box-shadow: 0 0 5px #000;"></div>
                 </div>
             </div>
+
+            <a href="https://www.rayze.it/shaaredaaspurimraffle/" target="_blank" class="donate-btn">
+                לרכישת כרטיס לתרי"ג
+            </a>
         </div>
 
         <div class="panel">
@@ -265,7 +332,6 @@
     </div>
 
     <script>
-        // === ה-ID של הקובץ החדש הוכנס לכאן ===
         const SHEET_ID = "1MGEhAjDztD_uVpDn7CI6lgc0X2ZNVEU8mGELmBXktvA"; 
         const SHEET_NAME = "tormim";
         const TARGET_DATE = new Date("March 13, 2026 00:00:00").getTime();
