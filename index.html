@@ -24,7 +24,7 @@
             color: var(--text-soft);
             font-family: 'Rubik', sans-serif;
             margin: 0;
-            overflow-x: hidden; /* מונע גלילה לצדדים בנייד */
+            overflow-x: hidden; 
             display: flex;
             flex-direction: column;
             min-height: 100vh;
@@ -32,7 +32,7 @@
 
         body::before {
             content: "";
-            position: fixed; /* שומר על הרקע גם כשגוללים בנייד */
+            position: fixed; 
             top: 0; left: 0; width: 100%; height: 100%;
             background: radial-gradient(circle at center, #00361d 0%, #000c06 100%);
             z-index: -1;
@@ -99,7 +99,7 @@
         /* === עיצוב השעון === */
         .rolex-container {
             position: relative;
-            width: 33vh; height: 33vh; /* טיפה הוקטן כדי לתת מקום לכפתור */
+            width: 33vh; height: 33vh; 
             background: #000;
             border-radius: 50%;
             border: 5px dashed var(--gold-matte); 
@@ -163,10 +163,10 @@
         .currency { color: var(--gold-matte); font-size: 4.5vh; vertical-align: super; margin-left: 5px; }
         .ticket-highlight { color: var(--gold-bright); text-shadow: 0 0 30px rgba(241, 196, 15, 0.5); }
 
-        /* === תרומות (ימין) === */
+        /* === תרומות (ימין) === התיקון לאפל יושב כאן: flex-start במקום center */
         .feed-container { 
             flex: 1; display: flex; flex-direction: column; 
-            gap: 1.2vh; overflow: hidden; justify-content: center; 
+            gap: 1.2vh; overflow: hidden; justify-content: flex-start; padding-top: 1vh;
         }
         .feed-item {
             display: flex; justify-content: space-between; align-items: center;
@@ -177,7 +177,7 @@
 
         /* === מטריצה - 33% תחתון מחשב === */
         .bottom-area {
-            flex: 1; /* לוקח את שאר הגובה במחשב */
+            flex: 1; 
             background: rgba(0, 0, 0, 0.4);
             border-top: 1px solid rgba(212, 175, 55, 0.2);
             padding: 1.5vh 3vh; 
@@ -225,26 +225,26 @@
            התאמה למובייל (מסכים צרים כמו פלאפונים)
            ========================================= */
         @media (max-width: 768px) {
-            body { overflow-y: auto; } /* מאפשר גלילה למטה בפלאפון */
+            body { overflow-y: auto; } 
             
             .main-stage {
                 height: auto;
-                flex-direction: column; /* שובר לטור אחד */
+                flex-direction: column; 
                 padding: 20px 10px;
                 gap: 20px;
             }
 
-            .center-col { order: 1; padding: 20px 0; } /* שעון למעלה */
-            .panel:nth-of-type(2) { order: 2; height: 350px; } /* נתונים באמצע */
-            .panel:nth-of-type(1) { order: 3; height: 400px; } /* תרומות למטה */
+            .center-col { order: 1; padding: 20px 0; } 
+            .panel:nth-of-type(2) { order: 2; height: 350px; } 
+            .panel:nth-of-type(1) { order: 3; height: 400px; } 
 
-            /* התאמת גדלים לפלאפון */
             .main-title { font-size: 35px; }
             .sub-title { font-size: 16px; margin-bottom: 30px; }
             
             .rolex-container { width: 280px; height: 280px; margin: 0 auto; }
             .timer-digital { font-size: 30px; }
-            .rolex-face div:first-child { font-size: 50px !important; } /* כתר */
+            /* כתר למובייל */
+            .rolex-face div:first-child { font-size: 50px !important; } 
             
             .donate-btn { font-size: 20px; padding: 15px 30px; margin-top: 30px; width: 80%; max-width: 300px; }
 
@@ -254,7 +254,6 @@
             
             .feed-item { font-size: 16px; padding: 12px; }
 
-            /* מטריצה מותאמת לפלאפון */
             .bottom-area {
                 order: 4;
                 height: auto;
@@ -264,167 +263,3 @@
             .grid-container {
                 gap: 3px;
                 padding-bottom: 20px;
-            }
-            .ticket {
-                width: 14px; /* קטן יותר כדי שייכנס לרוחב הפלאפון */
-                height: 14px;
-                font-size: 8px !important;
-            }
-
-            #notification-popup {
-                width: 90%; left: 5%; bottom: -200px; /* קופץ מלמטה בנייד */
-                top: auto; transition: bottom 0.5s;
-            }
-            #notification-popup.show { bottom: 20px; left: 5%; }
-        }
-    </style>
-</head>
-<body>
-
-    <div class="main-stage">
-        <div class="panel">
-            <div class="feed-container" id="feed"></div>
-        </div>
-
-        <div class="center-col">
-            <div class="main-title">הגרלת התרי"ג</div>
-            <div class="sub-title">ישיבת שערי דעת</div>
-            
-            <div class="rolex-container">
-                <div class="rolex-face">
-                    <div style="font-size: 6.5vh; color: var(--gold-matte); margin-bottom: 1vh; z-index: 2; line-height: 1;">♛</div>
-                    <div class="timer-digital" id="timer">00:00:00</div>
-                    <div class="second-hand"></div>
-                    <div style="position: absolute; width: 10px; height: 10px; background: var(--gold-matte); border-radius: 50%; z-index: 3; box-shadow: 0 0 5px #000;"></div>
-                </div>
-            </div>
-
-            <a href="https://www.rayze.it/shaaredaaspurimraffle/" target="_blank" class="donate-btn">
-                לרכישת כרטיס לתרי"ג
-            </a>
-        </div>
-
-        <div class="panel">
-            <div class="stats-content">
-                <div class="stat-group">
-                    <div class="stat-label">סכום שגויס</div>
-                    <div class="stat-value"><span class="currency">$</span><span id="total-money">0</span></div>
-                </div>
-                
-                <div class="stat-divider"></div>
-
-                <div class="stat-group">
-                    <div class="stat-label">כרטיסים שנמכרו</div>
-                    <div class="stat-value ticket-highlight" id="tickets-sold">0</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="bottom-area">
-        <div class="grid-container" id="grid"></div>
-    </div>
-
-    <div id="notification-popup">
-        <div style="color: var(--gold-matte); font-weight: bold; margin-bottom: 10px;">🎉 תרומה חדשה!</div>
-        <div id="pop-name" style="font-size: 2rem; font-weight: 900; margin-bottom: 10px;"></div>
-        <div id="pop-amount" style="font-size: 2.8rem; font-weight: 900; color: var(--gold-matte);"></div>
-    </div>
-
-    <script>
-        const SHEET_ID = "1MGEhAjDztD_uVpDn7CI6lgc0X2ZNVEU8mGELmBXktvA"; 
-        const SHEET_NAME = "tormim";
-        const TARGET_DATE = new Date("March 13, 2026 00:00:00").getTime();
-
-        const totalTickets = 613;
-        const gridEl = document.getElementById('grid');
-        for (let i = 1; i <= totalTickets; i++) {
-            let d = document.createElement('div');
-            d.className = 'ticket';
-            d.id = 't-' + i;
-            d.innerText = i;
-            gridEl.appendChild(d);
-        }
-
-        let previousTotalCount = -1;
-
-        setInterval(() => {
-            const now = new Date().getTime();
-            const distance = TARGET_DATE - now;
-            if (distance < 0) { document.getElementById("timer").innerHTML = "00:00:00"; return; }
-            const h = Math.floor(distance / (1000 * 60 * 60));
-            const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const s = Math.floor((distance % (1000 * 60)) / 1000);
-            document.getElementById("timer").innerHTML = (h<10?"0"+h:h)+":"+(m<10?"0"+m:m)+":"+(s<10?"0"+s:s);
-        }, 1000);
-
-        function fetchGoogleData() {
-            let script = document.createElement('script');
-            script.src = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=responseHandler:loadData&sheet=${SHEET_NAME}&_=${new Date().getTime()}`;
-            document.body.appendChild(script);
-            setTimeout(() => script.remove(), 2000);
-        }
-
-        window.loadData = function(json) {
-            let totalMoney = 0;
-            let currentDonors = [];
-            let currentSold = [];
-            let tempSoldTracker = new Set();
-
-            if (json && json.table && json.table.rows) {
-                json.table.rows.forEach(row => {
-                    if(!row.c || !row.c[1]) return;
-                    let name = row.c[0] ? (row.c[0].v || "אנונימי") : "אנונימי";
-                    if(name === "name" || name === "Name") return;
-                    
-                    let amount = Math.round(parseFloat(String(row.c[1].v).replace(/[^0-9.-]+/g,"")));
-                    
-                    if (amount > 0 && amount <= 613 && !tempSoldTracker.has(amount)) {
-                        totalMoney += amount;
-                        currentDonors.push({name, amount});
-                        currentSold.push(amount);
-                        tempSoldTracker.add(amount); 
-                    }
-                });
-            }
-
-            document.getElementById('total-money').innerText = totalMoney.toLocaleString();
-            document.getElementById('tickets-sold').innerText = currentSold.length;
-            
-            currentSold.forEach(num => {
-                let el = document.getElementById('t-' + num);
-                if(el && !el.classList.contains('taken')) el.classList.add('taken');
-            });
-
-            if (previousTotalCount !== -1 && currentDonors.length > previousTotalCount) {
-                let newItems = currentDonors.slice(-(currentDonors.length - previousTotalCount));
-                newItems.forEach(item => addDonorToFeed(item.name, item.amount));
-                triggerPopup(newItems[newItems.length - 1].name, newItems[newItems.length - 1].amount);
-            } else if (previousTotalCount === -1) {
-                currentDonors.slice(-9).forEach(item => addDonorToFeed(item.name, item.amount, false));
-            }
-            previousTotalCount = currentDonors.length;
-        };
-
-        function addDonorToFeed(name, amount, animate = true) {
-            const feed = document.getElementById('feed');
-            let div = document.createElement('div');
-            div.className = 'feed-item' + (animate ? ' fresh' : '');
-            div.innerHTML = `<span>${name}</span><span style="font-weight:bold; color:var(--gold-bright);">$${amount.toLocaleString()}</span>`;
-            feed.prepend(div);
-            if (feed.children.length > 9) feed.lastElementChild.remove();
-        }
-
-        function triggerPopup(name, amount) {
-            const popup = document.getElementById('notification-popup');
-            document.getElementById('pop-name').innerText = name;
-            document.getElementById('pop-amount').innerText = "$" + amount.toLocaleString();
-            popup.classList.add('show');
-            setTimeout(() => { popup.classList.remove('show'); }, 5000);
-        }
-
-        fetchGoogleData();
-        setInterval(fetchGoogleData, 3000);
-    </script>
-</body>
-</html>
