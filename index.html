@@ -8,7 +8,6 @@
         @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;500;700;900&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
 
-        /* === פותר את בעיית רוחב המסך === */
         * {
             box-sizing: border-box;
         }
@@ -43,6 +42,17 @@
             top: 0; left: 0; width: 100%; height: 100%;
             background: radial-gradient(circle at center, #00502b 0%, #001a0f 100%); 
             z-index: -1;
+        }
+
+        /* === הלוגו המרחף בצד === */
+        .side-logo {
+            position: fixed;
+            top: 3.5vh;
+            left: 3.5vh;
+            height: 16vh; /* גובה התמונה, מותאם ללוגו ארוך */
+            z-index: 1000;
+            pointer-events: none; /* כדי שלא יפריע ללחיצות בטעות */
+            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.6)); /* צללית שתבליט אותו על הרקע */
         }
 
         /* === פריסה בסיסית (מחשב) === */
@@ -197,7 +207,7 @@
             justify-content: center; align-content: center; 
             gap: 0.3vh;
             overflow-y: hidden;
-            direction: ltr; /* המספרים רצים משמאל לימין */
+            direction: ltr;
         }
 
         .ticket {
@@ -236,6 +246,8 @@
         @media (max-width: 768px) {
             body { overflow-y: auto; overflow-x: hidden; height: auto; } 
             
+            .side-logo { height: 10vh; top: 1.5vh; left: 2vh; } /* הקטנת הלוגו בפלאפון */
+
             .main-stage {
                 height: auto;
                 flex-direction: column; 
@@ -287,6 +299,8 @@
     </style>
 </head>
 <body>
+
+    <img src="logo.png" alt="לוגו התריג" class="side-logo">
 
     <div class="main-stage">
         <div class="panel">
@@ -341,7 +355,7 @@
     <script>
         const SHEET_ID = "1MGEhAjDztD_uVpDn7CI6lgc0X2ZNVEU8mGELmBXktvA"; 
         const SHEET_NAME = "tormim";
-        const TARGET_DATE = new Date("March 13, 2026 00:00:00").getTime(); // טיימר מכוון לחצות הלילה שבין חמישי לשישי
+        const TARGET_DATE = new Date("March 13, 2026 00:00:00").getTime();
 
         const totalTickets = 613;
         const gridEl = document.getElementById('grid');
