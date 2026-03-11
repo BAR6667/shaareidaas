@@ -180,23 +180,26 @@
         .currency { color: var(--gold-matte); font-size: 4.5vh; vertical-align: super; margin-left: 5px; }
         .ticket-highlight { color: var(--gold-bright); text-shadow: 0 0 30px rgba(241, 196, 15, 0.5); }
 
-        /* === תרומות (ימין) === התיקון הקריטי לאייפון נמצא כאן! */
+        /* === תרומות (ימין) === התיקון הקריטי לאייפון באמצעות CSS Grid */
         .feed-container { 
             flex: 1; display: flex; flex-direction: column; 
             gap: 1.2vh; overflow: hidden; justify-content: flex-start; padding-top: 1vh;
         }
         .feed-item {
-            display: flex; justify-content: space-between; align-items: center;
-            background: rgba(255, 255, 255, 0.05); padding: 1.5vh 2vh; border-radius: 10px;
-            font-size: 2vh; border-right: 4px solid #004d2e;
-            width: 100%; color: #ffffff;
+            display: grid; 
+            grid-template-columns: 1fr auto; /* חלוקה מוחלטת: שם תופס מקסימום, סכום לפי צורך */
+            align-items: center;
+            background: rgba(255, 255, 255, 0.05); 
+            padding: 1.5vh 2vh; 
+            border-radius: 10px;
+            font-size: 2vh; 
+            border-right: 4px solid #004d2e;
+            width: 100%; 
+            color: #ffffff;
         }
         .feed-item.fresh { border-right-color: var(--gold-matte); background: rgba(212, 175, 55, 0.15); animation: slideIn 0.5s ease-out; }
         
-        /* הפקודות שמונעות מספארי להעלים את השם */
         .donor-name {
-            flex: 1;
-            min-width: 0; /* קריטי לספארי! */
             text-align: right;
             white-space: nowrap;
             overflow: hidden;
@@ -205,7 +208,6 @@
             font-weight: 500;
         }
         .donor-amount {
-            flex-shrink: 0;
             font-weight: 900;
             color: var(--gold-bright);
             direction: ltr; /* שומר על הדולר במקום הנכון */
