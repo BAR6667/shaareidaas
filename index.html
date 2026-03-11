@@ -8,7 +8,7 @@
         @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;500;700;900&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
 
-        /* === פותר את בעיית רוחב המסך (חריגה וגלילה הצידה) === */
+        /* === פותר את בעיית רוחב המסך === */
         * {
             box-sizing: border-box;
         }
@@ -30,7 +30,7 @@
             font-family: 'Rubik', sans-serif;
             margin: 0;
             padding: 0;
-            overflow: hidden; /* מונע גלילה לחלוטין במסך מחשב */
+            overflow: hidden; 
             display: flex;
             flex-direction: column;
             height: 100vh;
@@ -45,7 +45,7 @@
             z-index: -1;
         }
 
-        /* === פריסה בסיסית (מחשב) - הוגדל ל-73% כדי לצמצם רווחים מהמספרים למטה === */
+        /* === פריסה בסיסית (מחשב) === */
         .main-stage {
             height: 73vh; 
             width: 100%;
@@ -106,7 +106,7 @@
         /* === עיצוב השעון === */
         .rolex-container {
             position: relative;
-            width: 36vh; height: 36vh; /* הוגדל מעט בזכות המקום שנוסף */
+            width: 36vh; height: 36vh; 
             background: #000;
             border-radius: 50%;
             border: 5px dashed var(--gold-matte); 
@@ -182,7 +182,7 @@
         }
         .feed-item.fresh { border-right-color: var(--gold-matte); background: rgba(212, 175, 55, 0.15); animation: slideIn 0.5s ease-out; color: #fff; }
 
-        /* === מטריצה - תחתון מחשב (הוקטן ל-27% כדי לעטוף את המספרים בדיוק) === */
+        /* === מטריצה - תחתון מחשב === */
         .bottom-area {
             height: 27vh; 
             width: 100%;
@@ -195,15 +195,17 @@
         .grid-container {
             flex: 1; display: flex; flex-wrap: wrap;
             justify-content: center; align-content: center; 
-            gap: 0.4vh; overflow-y: hidden;
+            gap: 0.3vh;
+            overflow-y: hidden;
+            direction: ltr; /* <--- הוספנו את זה כדי שהמספרים ירוצו משמאל לימין */
         }
 
         .ticket {
             background: rgba(255, 255, 255, 0.04); 
             color: var(--ticket-free) !important;
-            width: 2.2vh; height: 2.2vh; /* הוגדל קצת כי עכשיו השטח הדוק יותר */
+            width: 1.9vh; height: 1.9vh; 
             display: flex; justify-content: center; align-items: center;
-            font-size: 1.1vh !important; font-weight: 700; border-radius: 3px;
+            font-size: 1vh !important; font-weight: 700; border-radius: 3px;
         }
 
         .ticket.taken {
