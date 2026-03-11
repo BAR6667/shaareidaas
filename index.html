@@ -13,15 +13,15 @@
             box-sizing: border-box;
         }
 
-        /* === צבעי רולקס הרשמיים === */
+        /* === צבעי רולקס מוארים וחיים יותר === */
         :root {
-            --bg-deep: #001a0f; 
-            --panel-bg: rgba(0, 35, 18, 0.6); 
+            --bg-deep: #002b18; 
+            --panel-bg: rgba(0, 45, 25, 0.7); 
             --gold-matte: #d4af37; 
             --gold-bright: #f1c40f;
-            --text-soft: #e0e6ed;
-            --text-dim: #8fa898; 
-            --ticket-free: #6e9380; 
+            --text-soft: #ffffff; 
+            --text-dim: #a6c4b2; 
+            --ticket-free: #84a896; 
         }
 
         body {
@@ -41,7 +41,7 @@
             content: "";
             position: fixed; 
             top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at center, #00361d 0%, #000c06 100%);
+            background: radial-gradient(circle at center, #00502b 0%, #001a0f 100%); 
             z-index: -1;
         }
 
@@ -197,7 +197,7 @@
             justify-content: center; align-content: center; 
             gap: 0.3vh;
             overflow-y: hidden;
-            direction: ltr; /* <--- הוספנו את זה כדי שהמספרים ירוצו משמאל לימין */
+            direction: ltr; /* המספרים רצים משמאל לימין */
         }
 
         .ticket {
@@ -307,7 +307,7 @@
             </div>
 
             <a href="https://www.rayze.it/shaaredaaspurimraffle/" target="_blank" class="donate-btn">
-                לרכישת כרטיס לתרי"ג
+                לרכישת כרטיס
             </a>
         </div>
 
@@ -341,7 +341,7 @@
     <script>
         const SHEET_ID = "1MGEhAjDztD_uVpDn7CI6lgc0X2ZNVEU8mGELmBXktvA"; 
         const SHEET_NAME = "tormim";
-        const TARGET_DATE = new Date("March 13, 2026 00:00:00").getTime();
+        const TARGET_DATE = new Date("March 13, 2026 00:00:00").getTime(); // טיימר מכוון לחצות הלילה שבין חמישי לשישי
 
         const totalTickets = 613;
         const gridEl = document.getElementById('grid');
