@@ -180,14 +180,14 @@
         .currency { color: var(--gold-matte); font-size: 4.5vh; vertical-align: super; margin-left: 5px; }
         .ticket-highlight { color: var(--gold-bright); text-shadow: 0 0 30px rgba(241, 196, 15, 0.5); }
 
-        /* === תרומות (ימין) === התיקון הקריטי לאייפון באמצעות CSS Grid */
+        /* === תרומות (ימין) === */
         .feed-container { 
             flex: 1; display: flex; flex-direction: column; 
             gap: 1.2vh; overflow: hidden; justify-content: flex-start; padding-top: 1vh;
         }
         .feed-item {
             display: grid; 
-            grid-template-columns: 1fr auto; /* חלוקה מוחלטת: שם תופס מקסימום, סכום לפי צורך */
+            grid-template-columns: 1fr auto; 
             align-items: center;
             background: rgba(255, 255, 255, 0.05); 
             padding: 1.5vh 2vh; 
@@ -210,7 +210,7 @@
         .donor-amount {
             font-weight: 900;
             color: var(--gold-bright);
-            direction: ltr; /* שומר על הדולר במקום הנכון */
+            direction: ltr; 
         }
 
         /* === מטריצה - תחתון מחשב === */
@@ -376,7 +376,9 @@
     <script>
         const SHEET_ID = "1MGEhAjDztD_uVpDn7CI6lgc0X2ZNVEU8mGELmBXktvA"; 
         const SHEET_NAME = "tormim";
-        const TARGET_DATE = new Date("March 13, 2026 00:00:00").getTime();
+        
+        // טיימר מכוון ל-12 בלילה שבין יום רביעי ליום חמישי (תחילת ר"ח ניסן)
+        const TARGET_DATE = new Date("March 19, 2026 00:00:00").getTime();
 
         const totalTickets = 613;
         const gridEl = document.getElementById('grid');
